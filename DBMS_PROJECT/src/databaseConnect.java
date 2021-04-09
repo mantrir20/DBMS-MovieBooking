@@ -7,7 +7,7 @@ public class databaseConnect{
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 	static final String DB_URL = "jdbc:mysql://localhost:3306/dbms_proj";
 	static final String USER = "root";
-	static final String PASS = "krish@08";
+	static final String PASS = "#";
     
 	public static Connection dbconnect(){ 
 	
