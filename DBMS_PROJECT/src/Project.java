@@ -18,12 +18,13 @@ public class Project {
 		      Class.forName(JDBC_DRIVER);
 		      System.out.println("Connecting to a selected database...");
 		      conn = DriverManager.getConnection(DB_URL, USER, PASS);
+		      stmt=conn.createStatement();
 		      System.out.println("Connected database successfully...");
 		      String sql = "SELECT * FROM moviedetail;";
 		      ResultSet val = stmt.executeQuery(sql);
 		      while(val.next())
 		      {
-		    	  System.out.println(val.getString(1));
+		    	  System.out.println(val.getString(2));
 		      }
 		   }
 		   catch(Exception se)
