@@ -5,7 +5,7 @@ import java.util.*;
 import java.applet.*;
 import java.awt.*;
 public class Project {
-	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+	static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 	static final String DB_URL = "jdbc:mysql://localhost:3306/dbms_proj";
 	static final String USER = "root";
 	   static final String PASS = "";
@@ -15,7 +15,7 @@ public class Project {
 		Connection conn = null;
 		   Statement stmt = null;
 		   try {
-		      Class.forName("Project");
+		      Class.forName(JDBC_DRIVER);
 		      System.out.println("Connecting to a selected database...");
 		      conn = DriverManager.getConnection(DB_URL, USER, PASS);
 		      System.out.println("Connected database successfully...");
