@@ -11,6 +11,8 @@ import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Booking extends JFrame {
 
@@ -78,7 +80,7 @@ public class Booking extends JFrame {
          }
          catch (SQLException ex) {
             System.out.println("Entered");
-            System.out.println(ex.getMessage());                    // DOubt??//
+            System.out.println(ex.getMessage());
         } 
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -99,65 +101,117 @@ public class Booking extends JFrame {
 		MovieOptions.setLayout(null);
 		
 		JLabel MovieHeading = new JLabel("Choose Your Movie");
-		MovieHeading.setForeground(new Color(204, 102, 153));
+		MovieHeading.setForeground(new Color(0, 0, 0));
 		MovieHeading.setFont(new Font("Calibri", Font.BOLD, 50));
 		MovieHeading.setHorizontalAlignment(SwingConstants.CENTER);
 		MovieHeading.setBounds(0,0,1280,74);
 		MovieOptions.add(MovieHeading);
 		
 		JPanel Movie1 = new JPanel();
+		Movie1.addMouseListener(new PanelButtonMouseAdapter(Movie1));
 		Movie1.setBackground(new Color(255, 204, 51));
 		Movie1.setBounds(90, 110, 1100, 80);
 		MovieOptions.add(Movie1);
 		Movie1.setLayout(null);
 		
 		JLabel MovieName1 = new JLabel(m1);
+		MovieName1.setFont(new Font("Calibri", Font.BOLD, 30));
 		MovieName1.setHorizontalAlignment(SwingConstants.CENTER);
 		MovieName1.setBounds(300, 20, 500, 40);
 		Movie1.add(MovieName1);
 		
 		JPanel Movie2 = new JPanel();
+		Movie2.addMouseListener(new PanelButtonMouseAdapter(Movie2));
 		Movie2.setBackground(new Color(255, 204, 51));
 		Movie2.setBounds(90, 200, 1100, 80);
 		MovieOptions.add(Movie2);
 		Movie2.setLayout(null);
 		
 		JLabel MovieName2 = new JLabel(m2);
+		MovieName2.setFont(new Font("Calibri", Font.BOLD, 30));
 		MovieName2.setHorizontalAlignment(SwingConstants.CENTER);
 		MovieName2.setBounds(300, 20, 500, 40);
 		Movie2.add(MovieName2);
 		
 		JPanel Movie3 = new JPanel();
+		Movie3.addMouseListener(new PanelButtonMouseAdapter(Movie3));
 		Movie3.setBackground(new Color(255, 204, 51));
 		Movie3.setBounds(90, 290, 1100, 80);
 		MovieOptions.add(Movie3);
 		Movie3.setLayout(null);
 		
 		JLabel MovieName3 = new JLabel(m3);
+		MovieName3.setFont(new Font("Calibri", Font.BOLD, 30));
 		MovieName3.setHorizontalAlignment(SwingConstants.CENTER);
 		MovieName3.setBounds(300, 20, 500, 40);
 		Movie3.add(MovieName3);
 		
 		JPanel Movie4 = new JPanel();
+		Movie4.addMouseListener(new PanelButtonMouseAdapter(Movie4));
 		Movie4.setBackground(new Color(255, 204, 51));
 		Movie4.setBounds(90, 380, 1100, 80);
 		MovieOptions.add(Movie4);
 		Movie4.setLayout(null);
 		
 		JLabel MovieName4 = new JLabel(m4);
+		MovieName4.setFont(new Font("Calibri", Font.BOLD, 30));
 		MovieName4.setHorizontalAlignment(SwingConstants.CENTER);
 		MovieName4.setBounds(300, 20, 500, 40);
 		Movie4.add(MovieName4);
 		
 		JPanel Movie5 = new JPanel();
+		Movie5.addMouseListener(new PanelButtonMouseAdapter(Movie5));
 		Movie5.setBackground(new Color(255, 204, 51));
 		Movie5.setBounds(90, 470, 1100, 80);
 		MovieOptions.add(Movie5);
 		Movie5.setLayout(null);
 		
 		JLabel MovieName5 = new JLabel(m5);
+		MovieName5.setForeground(new Color(0, 0, 0));
+		MovieName5.setFont(new Font("Calibri", Font.BOLD, 30));
 		MovieName5.setHorizontalAlignment(SwingConstants.CENTER);
 		MovieName5.setBounds(300, 20, 500, 40);
 		Movie5.add(MovieName5);
+	}	
+	
+	public class PanelButtonMouseAdapter extends MouseAdapter {
+		
+		JPanel Panel;
+		public PanelButtonMouseAdapter(JPanel panel)
+		{
+			this.Panel=panel;
+		}
+		
+		@Override
+		public void mouseEntered(MouseEvent e)
+		{
+			Panel.setBackground(new Color(255, 204, 153));
+		}
+		
+		@Override
+		public void mouseExited(MouseEvent e)
+		{
+			Panel.setBackground(new Color(255, 204, 51));
+		}
+		
+		@Override
+		public void mousePressed(MouseEvent e)
+		{
+			Panel.setBackground(new Color(255, 102, 51));
+		}
+		
+		@Override
+		public void mouseReleased(MouseEvent e)
+		{
+			Panel.setBackground(new Color(255, 204, 153));
+		}
 	}
 }
+
+
+
+
+
+
+
+
