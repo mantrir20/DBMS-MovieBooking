@@ -267,7 +267,7 @@ public class mainPage extends javax.swing.JFrame {
 	          
 	          PreparedStatement ps_Getnumber = null;
 	          try {
-	        	  String query_Getnumber = "select count(*) from user";
+	        	  String query_Getnumber = "select count(*) from User";
 	        	  Statement stmt_Getnumber = connect.createStatement();
 	              ResultSet rs_Getnumber = stmt_Getnumber.executeQuery(query_Getnumber);
 	              rs_Getnumber.next();
@@ -278,7 +278,7 @@ public class mainPage extends javax.swing.JFrame {
 	          }
 	 
 	          try{
-	             String query="insert into user values(?,?,?,?,?,?)";
+	             String query="insert into User values(?,?,?,?,?,?)";
 				 PreparedStatement ps=null;
 				 ps=connect.prepareStatement(query);
 				
