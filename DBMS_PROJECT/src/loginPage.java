@@ -14,6 +14,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 public class loginPage extends javax.swing.JFrame {
     Connection connect=null;
+    static public int user_id;
    
     public loginPage() {
         initComponents();
@@ -40,7 +41,7 @@ public class loginPage extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    public void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -207,7 +208,7 @@ public class loginPage extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txt_user_idFocusGained
 
-    private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
+    public void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
         boolean check=false;
         if("Enter Email ID".equals(txt_email_id.getText())){
             JOptionPane.showMessageDialog(null, "Enter Valid Email ID");
@@ -216,7 +217,7 @@ public class loginPage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Enter Valid Password");
         }
         else{
-        	int user_id = 0;
+        	user_id = 0;
         	String pass=null;
         	int count=0;
         	String user_email = null;
@@ -255,7 +256,8 @@ public class loginPage extends javax.swing.JFrame {
             if(check){
             	System.out.println("Login Successfull");
                 this.setVisible(false);
-                new home(user_id).setVisible(true);
+               
+                new userDashboard().setVisible(true) ;
                 
             }
             else {

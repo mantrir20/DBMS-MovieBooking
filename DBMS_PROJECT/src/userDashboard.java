@@ -23,8 +23,10 @@ public class userDashboard extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					int uid=loginPage.user_id;
 					userDashboard frame = new userDashboard();
 					frame.setVisible(true);
+					System.out.println(""+uid);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
