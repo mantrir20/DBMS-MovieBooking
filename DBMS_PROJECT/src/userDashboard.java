@@ -5,14 +5,12 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.event.*;
-import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
 import javax.swing.JOptionPane;
-import java.awt.Font;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -32,7 +30,22 @@ public class userDashboard extends JFrame {
 
 	/**
 	 * Launch the application.
+	 * 
+	 * 
 	 */
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					userDashboard frame = new userDashboard(1);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
 	 * Create the frame.
@@ -91,7 +104,7 @@ public class userDashboard extends JFrame {
 		
 		JLabel walletpic = new JLabel("");
 		walletpic.setHorizontalAlignment(SwingConstants.CENTER);
-		walletpic.setBounds(54, 11, 266, 83);
+		walletpic.setBounds(54, 11, 247, 68);
 		walletpic.setIcon(new ImageIcon(wallet));
 		Wallet.add(walletpic);
 		
@@ -111,7 +124,7 @@ public class userDashboard extends JFrame {
 		
 		JLabel ratingpic = new JLabel("");
 		ratingpic.setHorizontalAlignment(SwingConstants.CENTER);
-		ratingpic.setBounds(57, 0, 266, 98);
+		ratingpic.setBounds(57, 0, 248, 79);
 		ratingpic.setIcon(new ImageIcon(rating));
 		Rating.add(ratingpic);
 		
