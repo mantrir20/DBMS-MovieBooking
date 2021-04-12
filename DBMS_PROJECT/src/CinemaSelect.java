@@ -36,7 +36,7 @@ public class CinemaSelect extends JFrame {
 		m=movieID;
 		u=userID;
 		connect=databaseConnect.dbconnect();
-		String query1 = "select * from cinemastation where `Movie ID`="+movieID+";";
+		String query1 = "select * from CinemaStation where `Movie ID`="+movieID+";";
 		PreparedStatement ps1=null;
 		try {
             ps1 = connect.prepareStatement(query1);

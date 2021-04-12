@@ -66,6 +66,7 @@ public class Wallet extends JFrame {
 		
 		
 		frame = new JFrame();
+		frame.setVisible(true);
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -83,40 +84,40 @@ public class Wallet extends JFrame {
 		frame.getContentPane().add(lblWallet);
 		
 		JButton Add50 = new JButton("+50");
+		Add50.setBounds(46, 179, 79, 25);
 		Add50.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updateMoneyLabel(50);
 			}
 
 		});
-		Add50.setBounds(46, 179, 79, 25);
 		frame.getContentPane().add(Add50);
 		
 		JButton Add100 = new JButton("+100");
+		Add100.setBounds(137, 179, 79, 25);
 		Add100.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updateMoneyLabel(100);
 			}
 		});
-		Add100.setBounds(137, 179, 79, 25);
 		frame.getContentPane().add(Add100);
 		
 		JButton Add500 = new JButton("+500");
+		Add500.setBounds(227, 179, 79, 25);
 		Add500.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updateMoneyLabel(500);
 			}
 		});
-		Add500.setBounds(227, 179, 79, 25);
 		frame.getContentPane().add(Add500);
 		
 		JButton Add1000 = new JButton("+1000");
+		Add1000.setBounds(318, 179, 79, 25);
 		Add1000.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updateMoneyLabel(1000);
 			}
 		});
-		Add1000.setBounds(318, 179, 79, 25);
 		frame.getContentPane().add(Add1000);
 		
 		JLabel lblAddMoney = new JLabel("Add Money");
@@ -124,11 +125,12 @@ public class Wallet extends JFrame {
 		frame.getContentPane().add(lblAddMoney);
 		
 		MoneyToBeAdded = new JLabel("0");
-		MoneyToBeAdded.setText("0");
 		MoneyToBeAdded.setBounds(265, 148, 70, 15);
+		MoneyToBeAdded.setText("0");
 		frame.getContentPane().add(MoneyToBeAdded);
 		
 		JButton btnAdd = new JButton("Add");
+		btnAdd.setBounds(237, 216, 117, 25);
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String amnt=MoneyToBeAdded.getText();
@@ -142,6 +144,7 @@ public class Wallet extends JFrame {
 		            int rs1=ps1.executeUpdate(query);
 		            updateCurrentBalanceUI();
 		            JOptionPane.showMessageDialog(null, "Money added Successfully!");
+		            frame.dispose();
 		            
 				}
 				catch(SQLException ex) {
@@ -150,16 +153,15 @@ public class Wallet extends JFrame {
 				
 			}
 		});
-		btnAdd.setBounds(237, 216, 117, 25);
 		frame.getContentPane().add(btnAdd);
 		
 		JButton btnReset = new JButton("Reset");
+		btnReset.setBounds(94, 216, 117, 25);
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MoneyToBeAdded.setText("0");
 			}
 		});
-		btnReset.setBounds(94, 216, 117, 25);
 		frame.getContentPane().add(btnReset);
 		
 	

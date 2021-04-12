@@ -38,7 +38,7 @@ public class Booking extends JFrame {
 		
 		u=user_id;
 		connect=databaseConnect.dbconnect();
-		String query1 = "select * from moviedetail";
+		String query1 = "select * from MovieDetail";
 		PreparedStatement ps1=null;
 		int m11=1,m22=2,m33=3,m44=4,m55=5;
 		try {

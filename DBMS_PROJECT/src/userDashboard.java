@@ -55,6 +55,7 @@ public class userDashboard extends JFrame {
 		u=user_id;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 835, 704);
+		//setBounds(100, 100, 450, 300);
 		setUndecorated(false);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(139, 69, 19));
@@ -99,7 +100,7 @@ public class userDashboard extends JFrame {
 		JLabel label = new JLabel("Check Your Wallet!");
 		label.setForeground(new Color(0, 0, 0));
 		label.setFont(new Font("Tw Cen MT Condensed", Font.PLAIN, 40));
-		label.setBounds(350, 11, 352, 61);
+		label.setBounds(350, 11, 422, 61);
 		Wallet.add(label);
 		
 		JLabel walletpic = new JLabel("");
@@ -119,7 +120,7 @@ public class userDashboard extends JFrame {
 		JLabel label_1 = new JLabel("Rate A Movie!");
 		label_1.setForeground(new Color(0, 0, 0));
 		label_1.setFont(new Font("Tw Cen MT Condensed", Font.PLAIN, 40));
-		label_1.setBounds(353, 11, 248, 61);
+		label_1.setBounds(353, 11, 385, 61);
 		Rating.add(label_1);
 		
 		JLabel ratingpic = new JLabel("");
@@ -138,7 +139,7 @@ public class userDashboard extends JFrame {
 		JLabel label_2 = new JLabel("Check Your Past Bookings");
 		label_2.setForeground(new Color(0, 0, 0));
 		label_2.setFont(new Font("Tw Cen MT Condensed", Font.PLAIN, 40));
-		label_2.setBounds(355, 11, 433, 61);
+		label_2.setBounds(355, 11, 466, 61);
 		Transaction.add(label_2);
 		
 		JLabel transactionpic = new JLabel("");
