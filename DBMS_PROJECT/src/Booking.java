@@ -25,30 +25,19 @@ public class Booking extends JFrame {
 	 ResultSet rs1,rs,rs2,rs3;
 	 String rname;
 	 String m1,m2,m3,m4,m5;
-	 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Booking frame = new Booking();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	 public static int u;
 
 	/**
 	 * Create the frame.
 	 */
-	public Booking() {
+	public Booking(int user_id) {
 		
 		
-		
+		u=user_id;
 		connect=databaseConnect.dbconnect();
-		String query1 = "select * from MovieDetail";
+		String query1 = "select * from moviedetail";
 		PreparedStatement ps1=null;
+		int m11=1,m22=2,m33=3,m44=4,m55=5;
 		try {
             ps1 = connect.prepareStatement(query1);
             rs3=ps1.executeQuery();
@@ -85,22 +74,23 @@ public class Booking extends JFrame {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100,100,1300,750);
-		setUndecorated(true);
+		setUndecorated(false);
 		OuterContainer = new JPanel();
 		OuterContainer.setForeground(new Color(0, 0, 0));
-		OuterContainer.setBackground(new Color(255, 255, 255));
-		OuterContainer.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		OuterContainer.setBackground(new Color(51, 255, 255));
+		OuterContainer.setBorder(null);
 		setContentPane(OuterContainer);
 		OuterContainer.setLayout(null);
 		
 		JPanel MovieOptions = new JPanel();
-		MovieOptions.setBackground(new Color(153, 255, 255));
+		MovieOptions.setBackground(new Color(51, 255, 255));
 		MovieOptions.setForeground(new Color(0, 0, 0));
 		MovieOptions.setBounds(10, 10, 1280, 730);
 		OuterContainer.add(MovieOptions);
 		MovieOptions.setLayout(null);
 		
 		JLabel MovieHeading = new JLabel("Choose Your Movie");
+		MovieHeading.setBackground(new Color(102, 255, 255));
 		MovieHeading.setForeground(new Color(0, 0, 0));
 		MovieHeading.setFont(new Font("Calibri", Font.BOLD, 50));
 		MovieHeading.setHorizontalAlignment(SwingConstants.CENTER);
@@ -108,7 +98,7 @@ public class Booking extends JFrame {
 		MovieOptions.add(MovieHeading);
 		
 		JPanel Movie1 = new JPanel();
-		Movie1.addMouseListener(new PanelButtonMouseAdapter(Movie1));
+		Movie1.addMouseListener(new PanelButtonMouseAdapter(Movie1,m11));
 		Movie1.setBackground(new Color(255, 204, 51));
 		Movie1.setBounds(90, 110, 1100, 80);
 		MovieOptions.add(Movie1);
@@ -121,7 +111,7 @@ public class Booking extends JFrame {
 		Movie1.add(MovieName1);
 		
 		JPanel Movie2 = new JPanel();
-		Movie2.addMouseListener(new PanelButtonMouseAdapter(Movie2));
+		Movie2.addMouseListener(new PanelButtonMouseAdapter(Movie2,m22));
 		Movie2.setBackground(new Color(255, 204, 51));
 		Movie2.setBounds(90, 200, 1100, 80);
 		MovieOptions.add(Movie2);
@@ -134,7 +124,7 @@ public class Booking extends JFrame {
 		Movie2.add(MovieName2);
 		
 		JPanel Movie3 = new JPanel();
-		Movie3.addMouseListener(new PanelButtonMouseAdapter(Movie3));
+		Movie3.addMouseListener(new PanelButtonMouseAdapter(Movie3,m33));
 		Movie3.setBackground(new Color(255, 204, 51));
 		Movie3.setBounds(90, 290, 1100, 80);
 		MovieOptions.add(Movie3);
@@ -147,7 +137,7 @@ public class Booking extends JFrame {
 		Movie3.add(MovieName3);
 		
 		JPanel Movie4 = new JPanel();
-		Movie4.addMouseListener(new PanelButtonMouseAdapter(Movie4));
+		Movie4.addMouseListener(new PanelButtonMouseAdapter(Movie4,m44));
 		Movie4.setBackground(new Color(255, 204, 51));
 		Movie4.setBounds(90, 380, 1100, 80);
 		MovieOptions.add(Movie4);
@@ -160,7 +150,7 @@ public class Booking extends JFrame {
 		Movie4.add(MovieName4);
 		
 		JPanel Movie5 = new JPanel();
-		Movie5.addMouseListener(new PanelButtonMouseAdapter(Movie5));
+		Movie5.addMouseListener(new PanelButtonMouseAdapter(Movie5,m55));
 		Movie5.setBackground(new Color(255, 204, 51));
 		Movie5.setBounds(90, 470, 1100, 80);
 		MovieOptions.add(Movie5);
@@ -177,9 +167,11 @@ public class Booking extends JFrame {
 	public class PanelButtonMouseAdapter extends MouseAdapter {
 		
 		JPanel Panel;
-		public PanelButtonMouseAdapter(JPanel panel)
+		int movie_id;
+		public PanelButtonMouseAdapter(JPanel panel,int movie_id)
 		{
 			this.Panel=panel;
+			this.movie_id=movie_id;
 		}
 		
 		@Override
@@ -204,6 +196,12 @@ public class Booking extends JFrame {
 		public void mouseReleased(MouseEvent e)
 		{
 			Panel.setBackground(new Color(255, 204, 153));
+		}
+		
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			new Booking(u).setVisible(false);
+			new CinemaSelect(movie_id).setVisible(true);
 		}
 	}
 }

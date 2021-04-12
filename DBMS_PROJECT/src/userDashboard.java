@@ -5,6 +5,20 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.event.*;
+import java.awt.Color;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import javax.swing.JOptionPane;
+import java.awt.Font;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JSeparator;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
 
 public class userDashboard extends JFrame {
 	private JPanel contentPane;
@@ -19,25 +33,13 @@ public class userDashboard extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					int uid=loginPage.user_id;
-					userDashboard frame = new userDashboard();
-					frame.setVisible(true);
-					System.out.println(""+uid);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
 	 */
-	public userDashboard() {
+	public static int u=0;
+	public userDashboard(int user_id) {
+		u=user_id;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 835, 704);
 		setUndecorated(false);
@@ -55,7 +57,7 @@ public class userDashboard extends JFrame {
 		
 		JPanel Booking = new JPanel();
 		Booking.setBorder(new LineBorder(new Color(0, 0, 0)));
-		Booking.addMouseListener(new Adapter(Booking));
+		Booking.addMouseListener(new Adapter(Booking,1));
 		Booking.setBackground(new Color(255, 239, 213));
 		Booking.setBounds(0, 111, 811, 89);
 		mainframe.add(Booking);
@@ -75,7 +77,7 @@ public class userDashboard extends JFrame {
 		
 		JPanel Wallet = new JPanel();
 		Wallet.setBorder(new LineBorder(new Color(0, 0, 0)));
-		Wallet.addMouseListener(new Adapter(Wallet));
+		Wallet.addMouseListener(new Adapter(Wallet,2));
 		Wallet.setBackground(new Color(255, 239, 213));
 		Wallet.setBounds(0, 198, 811, 89);
 		mainframe.add(Wallet);
@@ -95,7 +97,7 @@ public class userDashboard extends JFrame {
 		
 		JPanel Rating = new JPanel();
 		Rating.setBorder(new LineBorder(new Color(0, 0, 0)));
-		Rating.addMouseListener(new Adapter(Rating));
+		Rating.addMouseListener(new Adapter(Rating,3));
 		Rating.setBackground(new Color(255, 239, 213));
 		Rating.setBounds(0, 286, 811, 89);
 		mainframe.add(Rating);
@@ -115,7 +117,7 @@ public class userDashboard extends JFrame {
 		
 		JPanel Transaction = new JPanel();
 		Transaction.setBorder(new LineBorder(new Color(0, 0, 0)));
-		Transaction.addMouseListener(new Adapter(Transaction));
+		Transaction.addMouseListener(new Adapter(Transaction,4));
 		Transaction.setBackground(new Color(255, 239, 213));
 		Transaction.setBounds(0, 372, 811, 96);
 		mainframe.add(Transaction);
@@ -134,7 +136,7 @@ public class userDashboard extends JFrame {
 		
 		JPanel Report = new JPanel();
 		Report.setBorder(new LineBorder(new Color(0, 0, 0)));
-		Report.addMouseListener(new Adapter(Report));
+		Report.addMouseListener(new Adapter(Report,5));
 		Report.setBackground(new Color(255, 239, 213));
 		Report.setBounds(0, 468, 811, 95);
 		mainframe.add(Report);
@@ -154,7 +156,7 @@ public class userDashboard extends JFrame {
 		
 		JPanel Signout = new JPanel();
 		Signout.setBorder(new LineBorder(new Color(0, 0, 0)));
-		Signout.addMouseListener(new Adapter(Signout));
+		Signout.addMouseListener(new Adapter(Signout,6));
 		Signout.setBackground(new Color(255, 239, 213));
 		Signout.setBounds(-11, 563, 822, 89);
 		mainframe.add(Signout);
@@ -186,8 +188,10 @@ public class userDashboard extends JFrame {
 	}
 	private class Adapter extends MouseAdapter{
 		JPanel panel;
-		public Adapter(JPanel panel) {
+		int n;
+		public Adapter(JPanel panel,int n) {
 			this.panel=panel;
+			this.n=n;
 		}
 		@Override
 		public void mouseEntered(MouseEvent e) {
@@ -205,5 +209,38 @@ public class userDashboard extends JFrame {
 		public void mouseReleased(MouseEvent e) {
 			panel.setBackground(new Color(112,128,144));
 		}
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			new userDashboard(u).setVisible(false);
+            if(n==1)
+            {
+            	new Booking(u).setVisible(true);
+            }
+            else if(n==2)
+            {
+            	
+            }
+            else if(n==3)
+            {
+            	
+            }
+            else if(n==4)
+            {
+            	
+            }
+            else if(n==5)
+            {
+            	
+            }
+            else if(n==6)
+            {
+            	
+            }
+		}
 	}
 }
+
+
+
+
+

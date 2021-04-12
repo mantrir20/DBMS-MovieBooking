@@ -14,6 +14,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTable;
 import javax.swing.JToggleButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Wallet {
 
@@ -25,39 +27,27 @@ public class Wallet {
 	String username;
 	String balance;
 	PreparedStatement ps1=null;
-	int uid=loginPage.user_id;
+	public static int uid;
 	int total;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Wallet window = new Wallet();
-					window.frame.setVisible(true);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
 	 */
-	public Wallet() {
-		initialize();
+	public Wallet(int user_id) {
+		initialize(user_id);
 		
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(int user_id) {
 		
+		uid=user_id;
 		connect = databaseConnect.dbconnect();
 		String query1 = "select * from User where Uid="+uid+";";
 		
