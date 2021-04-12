@@ -218,7 +218,7 @@ public class userDashboard extends JFrame {
             }
             else if(n==2)
             {
-            	
+            	new Wallet(u).setVisible(true);
             }
             else if(n==3)
             {

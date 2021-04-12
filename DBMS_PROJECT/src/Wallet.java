@@ -17,7 +17,7 @@ import javax.swing.JToggleButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Wallet {
+public class Wallet extends JFrame {
 
 	private JFrame frame;
 	private JLabel MoneyToBeAdded;

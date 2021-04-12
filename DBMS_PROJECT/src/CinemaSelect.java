@@ -22,15 +22,19 @@ public class CinemaSelect extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+	public static int u;
 	Connection connect= null;
 	 ResultSet rs1,rs,rs2,rs3;
-	 String rname;
+	 String rname,rid;
 	 String m1,m2,m3,m4,m5;
+	 public static int s1,s2,m;
 
 	/**
 	 * Create the frame.
 	 */
-	public CinemaSelect(int movieID) {
+	public CinemaSelect(int movieID,int userID) {
+		m=movieID;
+		u=userID;
 		connect=databaseConnect.dbconnect();
 		String query1 = "select * from cinemastation where `Movie ID`="+movieID+";";
 		PreparedStatement ps1=null;
@@ -40,17 +44,16 @@ public class CinemaSelect extends JFrame {
             int i=0;
             while(rs3.next()) {
                 rname = rs3.getString("Station Name");
+                rid = rs3.getString("Station ID");
                 if(i==0)
                 {
                 	m1=rname;
-                }
-                else if(i==1)
-                {
-                	m2=rname;
+                	s1=Integer.parseInt(rid);  
                 }
                 else
                 {
-                	m3=rname;
+                	m2=rname;
+                	s2=Integer.parseInt(rid);  
                 }
                 i++;
             }
@@ -86,7 +89,7 @@ public class CinemaSelect extends JFrame {
 		StationOptions.add(MovieHeading);
 		
 		JPanel Station1 = new JPanel();
-		Station1.addMouseListener(new PanelButtonMouseAdapter(Station1));
+		Station1.addMouseListener(new PanelButtonMouseAdapter(Station1,s1));
 		Station1.setBackground(new Color(255, 204, 51));
 		Station1.setBounds(90, 110, 1100, 80);
 		StationOptions.add(Station1);
@@ -99,7 +102,7 @@ public class CinemaSelect extends JFrame {
 		Station1.add(StationName1);
 		
 		JPanel Station2 = new JPanel();
-		Station2.addMouseListener(new PanelButtonMouseAdapter(Station2));
+		Station2.addMouseListener(new PanelButtonMouseAdapter(Station2,s2));
 		Station2.setBackground(new Color(255, 204, 51));
 		Station2.setBounds(90, 200, 1100, 80);
 		StationOptions.add(Station2);
@@ -110,14 +113,30 @@ public class CinemaSelect extends JFrame {
 		StationName2.setHorizontalAlignment(SwingConstants.CENTER);
 		StationName2.setBounds(300, 20, 500, 40);
 		Station2.add(StationName2);
+		
+		JPanel BookingBack = new JPanel();
+		BookingBack.addMouseListener(new PanelButtonMouseAdapter(BookingBack,33));
+		BookingBack.setBackground(new Color(255, 204, 0));
+		BookingBack.setToolTipText("");
+		BookingBack.setBounds(90, 630, 250, 50);
+		StationOptions.add(BookingBack);
+		BookingBack.setLayout(null);
+		
+		JLabel BookingBackL = new JLabel("Back To Booking");
+		BookingBackL.setHorizontalAlignment(SwingConstants.CENTER);
+		BookingBackL.setFont(new Font("Calibri", Font.BOLD, 20));
+		BookingBackL.setBounds(25, 5, 200, 40);
+		BookingBack.add(BookingBackL);
 	}
 	
-public class PanelButtonMouseAdapter extends MouseAdapter {
+	public class PanelButtonMouseAdapter extends MouseAdapter {
 		
 		JPanel Panel;
-		public PanelButtonMouseAdapter(JPanel panel)
+		int s_id;
+		public PanelButtonMouseAdapter(JPanel panel,int s_id)
 		{
 			this.Panel=panel;
+			this.s_id=s_id;
 		}
 		
 		@Override
@@ -142,6 +161,20 @@ public class PanelButtonMouseAdapter extends MouseAdapter {
 		public void mouseReleased(MouseEvent e)
 		{
 			Panel.setBackground(new Color(255, 204, 153));
+		}
+		
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			if(s_id!=33)
+			{
+				new CinemaSelect(m,u).setVisible(false);
+				new SlotSelect(u,m,s_id).setVisible(true);
+			}
+			else
+			{
+				new CinemaSelect(m,u).setVisible(false);
+				new Booking(u).setVisible(true);
+			}
 		}
 	}
 }

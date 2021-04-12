@@ -13,6 +13,9 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Booking extends JFrame {
 
@@ -162,6 +165,20 @@ public class Booking extends JFrame {
 		MovieName5.setHorizontalAlignment(SwingConstants.CENTER);
 		MovieName5.setBounds(300, 20, 500, 40);
 		Movie5.add(MovieName5);
+		
+		JPanel DashboardBack = new JPanel();
+		DashboardBack.addMouseListener(new PanelButtonMouseAdapter(DashboardBack,33));
+		DashboardBack.setBackground(new Color(255, 204, 0));
+		DashboardBack.setToolTipText("");
+		DashboardBack.setBounds(90, 630, 250, 50);
+		MovieOptions.add(DashboardBack);
+		DashboardBack.setLayout(null);
+		
+		JLabel DashboardBackL = new JLabel("Back To Dashboard");
+		DashboardBackL.setHorizontalAlignment(SwingConstants.CENTER);
+		DashboardBackL.setFont(new Font("Calibri", Font.BOLD, 20));
+		DashboardBackL.setBounds(25, 5, 200, 40);
+		DashboardBack.add(DashboardBackL);
 	}	
 	
 	public class PanelButtonMouseAdapter extends MouseAdapter {
@@ -200,8 +217,16 @@ public class Booking extends JFrame {
 		
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			new Booking(u).setVisible(false);
-			new CinemaSelect(movie_id).setVisible(true);
+			if(movie_id!=33)
+			{
+				new Booking(u).setVisible(false);
+				new CinemaSelect(movie_id,u).setVisible(true);
+			}
+			else
+			{
+				new Booking(u).setVisible(false);
+				new userDashboard(u).setVisible(true);
+			}
 		}
 	}
 }
