@@ -55,7 +55,7 @@ public class SlotSelect extends JFrame {
 		s=Station_id;
 		u=userID;
 		connect=databaseConnect.dbconnect();
-		String query1 = "select * from cinemastation where `Station ID`="+Station_id+";";
+		String query1 = "select * from CinemaStation where `Station ID`="+Station_id+";";
 		PreparedStatement ps1=null;
 		try {
             ps1 = connect.prepareStatement(query1);

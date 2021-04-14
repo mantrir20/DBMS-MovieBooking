@@ -10,24 +10,35 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputMethodListener;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.awt.event.InputMethodEvent;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.SwingConstants;
+import com.toedter.calendar.JDateChooser;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
-public class BookingWindow {
+public class BookingWindow extends JFrame {
 
 	private JFrame frame;
 	private JTextField txtNoOfSeats;
+	private JDateChooser dcDate;
 	JButton btnMakePayment;
 	JLabel lblTotalAmount = new JLabel();
 	int seat, price;
 	int totalCost=0;
 	int availableSeats=100; //get value from database;
 	int balance=1000; //get value from wallet.Balance;
+	String date;
+
+	
 	
 	Connection connect= null;
 	ResultSet rs1,rs,rs2,rs3;
@@ -70,8 +81,8 @@ public class BookingWindow {
 		total=capacity;
 		
 		connect=databaseConnect.dbconnect();
-		String query1 = "select * from user where Uid="+u+";";
-		String query2 = "select * from moviedetail where `Movie ID`="+m+";";
+		String query1 = "select * from User where Uid="+u+";";
+		String query2 = "select * from MovieDetail where `Movie ID`="+m+";";
 		
 		PreparedStatement ps1=null;
 		PreparedStatement ps2=null;
@@ -96,20 +107,21 @@ public class BookingWindow {
 		price = Integer.parseInt(rid);
 		
 		frame = new JFrame();
+		frame.setVisible(true);
 		frame.getContentPane().setBackground(new Color(102, 255, 255));
 		frame.getContentPane().setFont(new Font("Calibri", Font.PLAIN, 10));
 		frame.setBounds(100, 100, 600, 500);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblBookingWindow = new JLabel("Booking Window");
 		lblBookingWindow.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBookingWindow.setFont(new Font("Calibri", Font.BOLD, 30));
-		lblBookingWindow.setBounds(150, 12, 300, 30);
+		lblBookingWindow.setBounds(156, 12, 300, 61);
 		frame.getContentPane().add(lblBookingWindow);
 		
 		JLabel lblInputNumberOf = new JLabel("Input number of seats :");
-		lblInputNumberOf.setBounds(150, 60, 140, 20);
+		lblInputNumberOf.setBounds(116, 85, 214, 20);
 		frame.getContentPane().add(lblInputNumberOf);
 		
 		txtNoOfSeats = new JTextField();
@@ -156,17 +168,17 @@ public class BookingWindow {
 		});
 		
 		txtNoOfSeats.setText("0");
-		txtNoOfSeats.setBounds(300, 60, 110, 20);
+		txtNoOfSeats.setBounds(348, 81, 108, 30);
 		frame.getContentPane().add(txtNoOfSeats);
 		txtNoOfSeats.setColumns(10);
 		
 		JLabel lblSelectPaymentMethod = new JLabel("Select payment method");
-		lblSelectPaymentMethod.setBounds(150, 100, 140, 20);
+		lblSelectPaymentMethod.setBounds(116, 136, 222, 20);
 		frame.getContentPane().add(lblSelectPaymentMethod);
 		
 		JRadioButton rdbtnWallet = new JRadioButton("Wallet");
 		rdbtnWallet.setSelected(true);
-		rdbtnWallet.setBounds(300, 100, 110, 20);
+		rdbtnWallet.setBounds(348, 136, 110, 20);
 		frame.getContentPane().add(rdbtnWallet);
 		
 		
@@ -177,12 +189,24 @@ public class BookingWindow {
 		btnMakePayment.setEnabled(false);
 		btnMakePayment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null, "Ticket Booked Successfully!");
+				try {
+					SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-YYYY");
+					date=sdf.format(dcDate.getDate()); //  pick (String)date variable from here to enter into database 
+					System.out.println(date);
+					JOptionPane.showMessageDialog(null, "Ticket Booked Successfully!");
+					
+					
+				}
+				catch(NullPointerException e) {
+					JOptionPane.showMessageDialog(null, "Choose Date!");
+				}
+				
+				
 				//add insert query in company transaction and ticket booking table
 							
 			}
 		});
-		btnMakePayment.setBounds(200, 198, 200, 30);
+		btnMakePayment.setBounds(171, 315, 237, 30);
 		frame.getContentPane().add(btnMakePayment);
 		
 		
@@ -190,8 +214,18 @@ public class BookingWindow {
 		lblTotalAmount = new JLabel("Total Amount : "+ 0);
 		lblTotalAmount.setFont(new Font("Calibri", Font.BOLD, 20));
 		lblTotalAmount.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTotalAmount.setBounds(200, 146, 200, 30);
+		lblTotalAmount.setBounds(156, 184, 270, 30);
 		frame.getContentPane().add(lblTotalAmount);
+		
+		JLabel lblSelectDate = new JLabel("Select Date : ");
+		lblSelectDate.setBounds(116, 244, 173, 15);
+		frame.getContentPane().add(lblSelectDate);
+		
+		dcDate = new JDateChooser();
+		
+		
+		dcDate.setBounds(348, 240, 110, 19);
+		frame.getContentPane().add(dcDate);
 		
 		
 		

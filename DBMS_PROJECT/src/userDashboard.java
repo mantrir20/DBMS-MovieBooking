@@ -54,7 +54,7 @@ public class userDashboard extends JFrame {
 	public userDashboard(int user_id) {
 		u=user_id;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 835, 704);
+		setBounds(100, 100, 840, 700);
 		//setBounds(100, 100, 450, 300);
 		setUndecorated(false);
 		contentPane = new JPanel();
@@ -80,12 +80,12 @@ public class userDashboard extends JFrame {
 		JLabel booklabel = new JLabel("Book A Ticket!");
 		booklabel.setFont(new Font("Tw Cen MT Condensed", Font.PLAIN, 40));
 		booklabel.setForeground(new Color(0, 0, 0));
-		booklabel.setBounds(357, 11, 255, 61);
+		booklabel.setBounds(158, 12, 641, 61);
 		Booking.add(booklabel);
 		
 		JLabel Bookpic = new JLabel("");
 		Bookpic.setHorizontalAlignment(SwingConstants.CENTER);
-		Bookpic.setBounds(31, 0, 303, 83);
+		Bookpic.setBounds(29, 0, 99, 83);
 		Bookpic.setIcon(new ImageIcon(booking));
 		Booking.add(Bookpic);
 		
@@ -100,12 +100,12 @@ public class userDashboard extends JFrame {
 		JLabel label = new JLabel("Check Your Wallet!");
 		label.setForeground(new Color(0, 0, 0));
 		label.setFont(new Font("Tw Cen MT Condensed", Font.PLAIN, 40));
-		label.setBounds(350, 11, 422, 61);
+		label.setBounds(159, 11, 613, 61);
 		Wallet.add(label);
 		
 		JLabel walletpic = new JLabel("");
 		walletpic.setHorizontalAlignment(SwingConstants.CENTER);
-		walletpic.setBounds(54, 11, 247, 68);
+		walletpic.setBounds(12, 12, 125, 68);
 		walletpic.setIcon(new ImageIcon(wallet));
 		Wallet.add(walletpic);
 		
@@ -120,12 +120,12 @@ public class userDashboard extends JFrame {
 		JLabel label_1 = new JLabel("Rate A Movie!");
 		label_1.setForeground(new Color(0, 0, 0));
 		label_1.setFont(new Font("Tw Cen MT Condensed", Font.PLAIN, 40));
-		label_1.setBounds(353, 11, 385, 61);
+		label_1.setBounds(161, 11, 577, 61);
 		Rating.add(label_1);
 		
 		JLabel ratingpic = new JLabel("");
 		ratingpic.setHorizontalAlignment(SwingConstants.CENTER);
-		ratingpic.setBounds(57, 0, 248, 79);
+		ratingpic.setBounds(39, 0, 90, 90);
 		ratingpic.setIcon(new ImageIcon(rating));
 		Rating.add(ratingpic);
 		
@@ -139,12 +139,12 @@ public class userDashboard extends JFrame {
 		JLabel label_2 = new JLabel("Check Your Past Bookings");
 		label_2.setForeground(new Color(0, 0, 0));
 		label_2.setFont(new Font("Tw Cen MT Condensed", Font.PLAIN, 40));
-		label_2.setBounds(355, 11, 466, 61);
+		label_2.setBounds(159, 11, 662, 61);
 		Transaction.add(label_2);
 		
 		JLabel transactionpic = new JLabel("");
 		transactionpic.setHorizontalAlignment(SwingConstants.CENTER);
-		transactionpic.setBounds(53, 0, 266, 96);
+		transactionpic.setBounds(29, 0, 107, 96);
 		transactionpic.setIcon(new ImageIcon(transaction));
 		Transaction.add(transactionpic);
 		
@@ -159,12 +159,12 @@ public class userDashboard extends JFrame {
 		JLabel label_3 = new JLabel("Your Transaction History");
 		label_3.setForeground(new Color(0, 0, 0));
 		label_3.setFont(new Font("Tw Cen MT Condensed", Font.PLAIN, 40));
-		label_3.setBounds(354, 11, 416, 61);
+		label_3.setBounds(159, 11, 611, 61);
 		Report.add(label_3);
 		
 		JLabel reportpic = new JLabel("");
 		reportpic.setHorizontalAlignment(SwingConstants.CENTER);
-		reportpic.setBounds(60, 0, 266, 95);
+		reportpic.setBounds(33, 0, 100, 95);
 		reportpic.setIcon(new ImageIcon(report));
 		Report.add(reportpic);
 		
@@ -179,12 +179,12 @@ public class userDashboard extends JFrame {
 		JLabel label_4 = new JLabel("Sign-Out");
 		label_4.setForeground(new Color(0, 0, 0));
 		label_4.setFont(new Font("Tw Cen MT Condensed", Font.PLAIN, 40));
-		label_4.setBounds(353, 11, 168, 61);
+		label_4.setBounds(182, 11, 339, 61);
 		Signout.add(label_4);
 		
 		JLabel signoutpic = new JLabel("");
 		signoutpic.setHorizontalAlignment(SwingConstants.CENTER);
-		signoutpic.setBounds(47, 0, 266, 83);
+		signoutpic.setBounds(36, 0, 107, 83);
 		signoutpic.setIcon(new ImageIcon(signout));
 		Signout.add(signoutpic);
 		
