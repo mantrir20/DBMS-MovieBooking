@@ -68,7 +68,7 @@ public class Wallet extends JFrame {
 		frame = new JFrame();
 		frame.setVisible(true);
 		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		lblCurrentBalance = new JLabel("Current Balance : "+ "Rs "+balance);
