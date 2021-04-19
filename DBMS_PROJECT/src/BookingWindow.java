@@ -290,6 +290,8 @@ public class BookingWindow extends JFrame {
 							 ps6=connect.prepareStatement(query6);
 							 int rs1=ps6.executeUpdate(query6);
 							 
+							 dispose();
+							 
 							  
 							 }
 						catch (java.sql.SQLException e){

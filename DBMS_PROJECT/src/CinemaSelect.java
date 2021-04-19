@@ -63,7 +63,7 @@ public class CinemaSelect extends JFrame {
             System.out.println(ex.getMessage());
         } 
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100,100,1300,750);
 		setUndecorated(false);
 		OuterContainer = new JPanel();
@@ -167,12 +167,12 @@ public class CinemaSelect extends JFrame {
 		public void mouseClicked(MouseEvent e) {
 			if(s_id!=33)
 			{
-				new CinemaSelect(m,u).setVisible(false);
+				setVisible(false);
 				new BookingWindow(u,m,s_id).setVisible(true);
 			}
 			else
 			{
-				new CinemaSelect(m,u).setVisible(false);
+				setVisible(false);
 				new Booking(u).setVisible(true);
 			}
 		}

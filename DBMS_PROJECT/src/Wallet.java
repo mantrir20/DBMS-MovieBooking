@@ -144,7 +144,7 @@ public class Wallet extends JFrame {
 		            int rs1=ps1.executeUpdate(query);
 		            updateCurrentBalanceUI();
 		            JOptionPane.showMessageDialog(null, "Money added Successfully!");
-		            frame.dispose();
+		            setVisible(false);
 		            
 				}
 				catch(SQLException ex) {

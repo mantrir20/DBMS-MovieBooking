@@ -219,12 +219,15 @@ public class Booking extends JFrame {
 		public void mouseClicked(MouseEvent e) {
 			if(movie_id!=33)
 			{
-				new Booking(u).setVisible(false);
+				//new Booking(u).setVisible(false);
+				setVisible(false);
 				new CinemaSelect(movie_id,u).setVisible(true);
 			}
 			else
 			{
-				new Booking(u).setVisible(false);
+				//new Booking(u).setVisible(false);
+				
+				setVisible(false);
 				new userDashboard(u).setVisible(true);
 			}
 		}

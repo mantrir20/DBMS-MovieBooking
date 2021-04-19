@@ -38,12 +38,14 @@ public class userDashboard extends JFrame {
 	private Image transaction=new ImageIcon(userDashboard.class.getResource("transaction.png")).getImage().getScaledInstance(90,90,Image.SCALE_SMOOTH);
 	private Image report=new ImageIcon(userDashboard.class.getResource("report.png")).getImage().getScaledInstance(90,90,Image.SCALE_SMOOTH);
 	private Image signout=new ImageIcon(userDashboard.class.getResource("signout.png")).getImage().getScaledInstance(90,90,Image.SCALE_SMOOTH);
-
+	static Connection connect= null;
 	/**
 	 * Launch the application.
 	 * 
 	 * 
 	 */
+	String username;
+	String balance;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -63,7 +65,28 @@ public class userDashboard extends JFrame {
 	 */
 	public static int u=0;
 	public userDashboard(int user_id) {
+		
 		u=user_id;
+		
+		PreparedStatement ps1=null;
+		connect = databaseConnect.dbconnect();
+		String query1 = "select * from User where Uid="+u+";";
+		
+		try {
+			
+            ps1 = connect.prepareStatement(query1);
+            ResultSet rs=ps1.executeQuery(query1);
+            while(rs.next()) {
+            	username = rs.getString("Uname");	
+            	balance =rs.getString("Balance");
+            }
+            
+		}
+		catch(SQLException ex) {
+			System.out.println("SQL Exception "+ex.getMessage());
+		}
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 840, 700);
 		//setBounds(100, 100, 450, 300);
@@ -175,7 +198,7 @@ public class userDashboard extends JFrame {
 		
 		JLabel reportpic = new JLabel("");
 		reportpic.setHorizontalAlignment(SwingConstants.CENTER);
-		reportpic.setBounds(33, 0, 100, 95);
+		reportpic.setBounds(34, 0, 100, 95);
 		reportpic.setIcon(new ImageIcon(report));
 		Report.add(reportpic);
 		
@@ -202,14 +225,22 @@ public class userDashboard extends JFrame {
 		JPanel Dash = new JPanel();
 		Dash.setLayout(null);
 		Dash.setBackground(new Color(139, 69, 19));
-		Dash.setBounds(0, 0, 807, 100);
+		Dash.setBounds(12, 0, 807, 100);
 		mainframe.add(Dash);
 		
 		JLabel Dashpic = new JLabel("");
 		Dashpic.setHorizontalAlignment(SwingConstants.CENTER);
 		Dashpic.setIcon(new ImageIcon(movie));
-		Dashpic.setBounds(180, 11, 486, 78);
+		Dashpic.setBounds(24, 12, 134, 78);
 		Dash.add(Dashpic);
+		
+		JLabel lblHi = new JLabel("Hi! "+username);
+		lblHi.setHorizontalTextPosition(SwingConstants.RIGHT);
+		lblHi.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 43));
+		lblHi.setForeground(Color.WHITE);
+		lblHi.setSize(new Dimension(20, 20));
+		lblHi.setBounds(301, 12, 483, 64);
+		Dash.add(lblHi);
 	}
 	private class Adapter extends MouseAdapter{
 		JPanel panel;
@@ -257,7 +288,7 @@ public class userDashboard extends JFrame {
             {
             	try
             	{
-            		String file_name="";//enter path of download directory
+            		String file_name="Home\\User_report";//enter path of download directory
                 	Document document=new Document();
                 	PdfWriter.getInstance(document, new FileOutputStream(file_name));
                 	document.open();
