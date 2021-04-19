@@ -282,13 +282,9 @@ public class userDashboard extends JFrame {
             }
             else if(n==4)
             {
-            	
-            }
-            else if(n==5)
-            {
             	try
             	{
-            		String file_name="Home\\User_report";//enter path of download directory
+            		String file_name="";//enter path of download directory
                 	Document document=new Document();
                 	PdfWriter.getInstance(document, new FileOutputStream(file_name));
                 	document.open();
@@ -332,19 +328,82 @@ public class userDashboard extends JFrame {
                      }
                      catch (SQLException ex) {
                         System.out.println(ex.getMessage());
+                        
                     }
+                	
                 	
                 	document.add(table);
                 	document.close();
             	}
-            	catch(Exception e1)
-            	{
-            		System.err.println(e1);
+            	catch(Exception ex2) {
+            		JOptionPane.showMessageDialog(null, "You have no past transactions");
             	}
+            	
+            }
+            else if(n==5)
+            {
+            	try
+            	{
+            		String file_name="";//enter path of download directory
+                	Document document=new Document();
+                	PdfWriter.getInstance(document, new FileOutputStream(file_name));
+                	document.open();
+                	PdfPTable table=new PdfPTable(6);
+                	PdfPCell c1=new PdfPCell(new Phrase("Payment ID"));
+                	PdfPCell c2=new PdfPCell(new Phrase("Transaction Status"));
+                	PdfPCell d1=new PdfPCell(new Phrase("Number of Seats"));
+                	PdfPCell d2=new PdfPCell(new Phrase("Amount"));
+                	PdfPCell e1=new PdfPCell(new Phrase("Date"));
+                	PdfPCell e2=new PdfPCell(new Phrase("Time"));
+                	table.addCell(c1);
+                	table.addCell(c2);
+                	table.addCell(d1);
+                	table.addCell(d2);
+                	table.addCell(e1);
+                	table.addCell(e2);
+                	table.setHeaderRows(1);
+                	Connection connect=databaseConnect.dbconnect();
+                	String query="select * from CompanyTransaction where Uid="+u+";";
+                	System.out.println(u);
+                	PreparedStatement ps1=null;
+                	try {
+                        ps1 = connect.prepareStatement(query);
+                        ResultSet rs=ps1.executeQuery();
+                        int i=0;
+                        while(rs.next()) {
+                  
+                        	PdfPCell c3=new PdfPCell(new Phrase(rs.getString("Payment Id")));
+                        	table.addCell(c3);          
+                        	PdfPCell c4=new PdfPCell(new Phrase(rs.getString("Transaction Result")));
+                        	table.addCell(c4);
+                        	PdfPCell c5=new PdfPCell(new Phrase(rs.getString("Number of Seats")));
+                        	table.addCell(c5);
+                        	PdfPCell c6=new PdfPCell(new Phrase(rs.getString("Amount")));
+                        	table.addCell(c6);
+                        	PdfPCell c7=new PdfPCell(new Phrase(rs.getString("Date")));
+                        	table.addCell(c7);
+                        	PdfPCell c8=new PdfPCell(new Phrase(rs.getString("Timeslot")));
+                        	table.addCell(c8);
+                        }
+                     }
+                     catch (SQLException ex) {
+                        System.out.println(ex.getMessage());
+                        
+                    }
+                	
+                	
+                	document.add(table);
+                	document.close();
+            	}
+            	catch(Exception ex2) {
+            		JOptionPane.showMessageDialog(null, "You have no past transactions");
+            	}
+            	
             }
             else if(n==6)
             {
-            	
+            	setVisible(false);
+            	new loginPage().setVisible(true);
             }
 		}
 	}
