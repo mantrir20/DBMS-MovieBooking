@@ -257,7 +257,7 @@ public class userDashboard extends JFrame {
             {
             	try
             	{
-            		String file_name="D:\\User_Report.pdf";
+            		String file_name="Home\\Downloads\\User_Report.pdf";
                 	Document document=new Document();
                 	PdfWriter.getInstance(document, new FileOutputStream(file_name));
                 	document.open();
@@ -276,13 +276,15 @@ public class userDashboard extends JFrame {
                 	table.addCell(e2);
                 	table.setHeaderRows(1);
                 	Connection connect=databaseConnect.dbconnect();
-                	String query="select * from CompanyTransaction";
+                	String query="select * from CompanyTransaction where Uid="+u+";";
+                	System.out.println(u);
                 	PreparedStatement ps1=null;
                 	try {
                         ps1 = connect.prepareStatement(query);
                         ResultSet rs=ps1.executeQuery();
                         int i=0;
                         while(rs.next()) {
+                  
                         	PdfPCell c3=new PdfPCell(new Phrase(rs.getString("Payment Id")));
                         	table.addCell(c3);          
                         	PdfPCell c4=new PdfPCell(new Phrase(rs.getString("Transaction Result")));
@@ -300,6 +302,7 @@ public class userDashboard extends JFrame {
                      catch (SQLException ex) {
                         System.out.println(ex.getMessage());
                     }
+                	
                 	document.add(table);
                 	document.close();
             	}

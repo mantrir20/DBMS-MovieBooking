@@ -253,9 +253,10 @@ public class loginPage extends javax.swing.JFrame {
             }
 
             if(check){
-            	System.out.println("Login Successfull");
+            	System.out.println("Login Successfull, User Id="+user_id);
                 this.setVisible(false);
                 new userDashboard(user_id).setVisible(true);
+              
                 
             }
             else {

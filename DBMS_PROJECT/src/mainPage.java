@@ -290,7 +290,7 @@ public class mainPage extends javax.swing.JFrame {
 				 ps.setString(6, password);
 				 ps.execute();
 				 this.setVisible(false);
-				 new home(count_Users+1).setVisible(true);
+				 new loginPage().setVisible(true);
 				 JOptionPane.showMessageDialog(null, "Signup Successful");
 				  
 				  }catch (java.sql.SQLException e){
