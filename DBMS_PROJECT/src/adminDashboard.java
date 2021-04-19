@@ -25,7 +25,7 @@ public class adminDashboard extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					adminDashboard frame = new adminDashboard();
+					adminDashboard frame = new adminDashboard(1);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,7 +37,7 @@ public class adminDashboard extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public adminDashboard() {
+	public adminDashboard(int admin_id) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 858, 604);
 		setUndecorated(false);

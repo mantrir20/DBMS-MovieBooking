@@ -30,6 +30,8 @@ public class mainPage extends javax.swing.JFrame {
         separator_1.setForeground(Color.BLACK);
         separator_1.setBounds(250, 91, 13, 229);
         getContentPane().add(separator_1);
+        
+       
         connect=databaseConnect.dbconnect();
     }
 
@@ -60,6 +62,12 @@ public class mainPage extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel6.setFont(new Font("Arial", Font.BOLD, 16));
+        
+        cancel_1 = new JButton();
+        cancel_1.setText("Admin");
+        cancel_1.setFont(new Font("Arial", Font.BOLD, 20));
+        cancel_1.setBounds(604, 420, 136, 40);
+        getContentPane().add(cancel_1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(938, 540));
@@ -82,6 +90,11 @@ public class mainPage extends javax.swing.JFrame {
         cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelActionPerformed(evt);
+            }
+        });
+        cancel_1.addActionListener(new java.awt.event.ActionListener() {
+        	public void actionPerformed(java.awt.event.ActionEvent evt) {
+        		admin_loginActionPerformed(evt);
             }
         });
         getContentPane().add(cancel);
@@ -311,6 +324,12 @@ public class mainPage extends javax.swing.JFrame {
         
     }//GEN-LAST:event_cancelActionPerformed
     
+    private void admin_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
+        this.setVisible(false);
+        new adminloginPage().setVisible(true);
+         
+     }//GEN-LAST:event_cancelActionPerformed
+    
     public boolean verify_email(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+ 
                             "[a-zA-Z0-9_+&*-]+)*@" + 
@@ -347,4 +366,5 @@ public class mainPage extends javax.swing.JFrame {
     private javax.swing.JTextField txt_name;
     private javax.swing.JPasswordField txt_password;
     private javax.swing.JTextField txt_phone_number;
+    private JButton cancel_1;
 }
