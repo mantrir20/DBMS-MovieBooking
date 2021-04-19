@@ -168,7 +168,7 @@ public class CinemaSelect extends JFrame {
 			if(s_id!=33)
 			{
 				new CinemaSelect(m,u).setVisible(false);
-				new SlotSelect(u,m,s_id).setVisible(true);
+				new BookingWindow(u,m,s_id).setVisible(true);
 			}
 			else
 			{

@@ -51,9 +51,9 @@ public class BookingWindow extends JFrame {
 	
 	Connection connect= null;
 	ResultSet rs1,rs,rs2,rs3,rs_Getnumber,rs4;
-	String rname,rid;
+	String rname,rid,rseat;
 	String m1,m2,m3,m4,m5;
-	public static int u,m,s,total,s1,s2;
+	public static int u,m,s,capacity,s1,s2;
 	
 	/**
 	 * Launch the application.
@@ -62,7 +62,7 @@ public class BookingWindow extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					BookingWindow window = new BookingWindow(1,1,1,300);
+					BookingWindow window = new BookingWindow(1,1,1);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -74,22 +74,22 @@ public class BookingWindow extends JFrame {
 	/**
 	 * Create the application.
 	 */
-	public BookingWindow(int user_id,int movie_id,int station_id,int capacity) {
-		initialize(user_id,movie_id,station_id,capacity);
+	public BookingWindow(int user_id,int movie_id,int station_id) {
+		initialize(user_id,movie_id,station_id);
 		
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(int user_id,int movie_id,int station_id,int capacity) {
+	private void initialize(int user_id,int movie_id,int station_id) {
 		
 		u=user_id;
 		m=movie_id;
 		s=station_id;
-		total=capacity;
 		
 		connect=databaseConnect.dbconnect();
+		System.out.println("in Booking window");
 		String query1 = "select * from User where Uid="+u+";";
 		String query2 = "select * from MovieDetail where `Movie ID`="+m+";";
 		
@@ -108,7 +108,6 @@ public class BookingWindow extends JFrame {
             	
                 rid = rs2.getString("Price");
                 movieName=rs2.getString("Movie Name");
-                System.out.println(movieName);
             }
          }
          catch (SQLException ex) {
@@ -123,7 +122,6 @@ public class BookingWindow extends JFrame {
             rs_Getnumber = ps_Getnumber.executeQuery();
             rs_Getnumber.next();
             ticketID = rs_Getnumber.getInt(1);
-            System.out.println(ticketID);
         }catch(Exception e) {
       	  System.out.println(e.getMessage());
 		      JOptionPane.showMessageDialog(null, "Error getting number of users");
@@ -138,6 +136,7 @@ public class BookingWindow extends JFrame {
             int i=0;
             while(rs4.next()) {
                 times= rs4.getString("Availability");
+                rseat = rs4.getString("Total Seats");
             }
          }
          catch (SQLException ex) {
@@ -152,7 +151,7 @@ public class BookingWindow extends JFrame {
 	
 		
 		
-		
+		capacity = Integer.parseInt(rseat);
 		balance = Integer.parseInt(rname);
 		price = Integer.parseInt(rid);
 		
@@ -403,10 +402,5 @@ public class BookingWindow extends JFrame {
 		if(t4==1) {
 			rdbtn4.setEnabled(true);
 		}
-		
-		
-		
-		
-
 	}
 }
