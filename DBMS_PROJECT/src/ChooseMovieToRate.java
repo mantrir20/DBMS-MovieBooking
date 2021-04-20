@@ -38,7 +38,7 @@ public class ChooseMovieToRate extends JFrame {
 		
 		u=user_id;
 		connect=databaseConnect.dbconnect();
-		String query1 = "select * from MovieDetail";
+		String query1 = "select `Movie Name` from MovieDetail where `Movie Id` in (select `Movie Id` from Watch where Uid="+u+");";
 		PreparedStatement ps1=null;
 		int m11=1,m22=2,m33=3,m44=4,m55=5;
 		try {
@@ -92,7 +92,7 @@ public class ChooseMovieToRate extends JFrame {
 		OuterContainer.add(MovieOptions);
 		MovieOptions.setLayout(null);
 		
-		JLabel MovieHeading = new JLabel("Choose Your Movie");
+		JLabel MovieHeading = new JLabel("Choose Movie To Rate!");
 		MovieHeading.setBackground(new Color(102, 255, 255));
 		MovieHeading.setForeground(new Color(0, 0, 0));
 		MovieHeading.setFont(new Font("Calibri", Font.BOLD, 50));
@@ -221,7 +221,7 @@ public class ChooseMovieToRate extends JFrame {
 			{
 				//new Booking(u).setVisible(false);
 				setVisible(false);
-				new CinemaSelect(movie_id,u).setVisible(true);
+				new RatingPage(movie_id,u).setVisible(true);
 			}
 			else
 			{

@@ -82,7 +82,7 @@ public class UpdateStation extends JFrame {
 		System.out.println("In Update window");
 		
 		// Get Employee Details
-		String query1 = "select * from employee where Eid="+adminid+";";
+		String query1 = "select * from Employee where Eid="+adminid+";";
 		PreparedStatement ps1=null;
 		try {
 
@@ -98,7 +98,7 @@ public class UpdateStation extends JFrame {
         }
 		
 		// Get Station details
-		String query2 = "select * from cinemastation where `station id`="+station_id+";";
+		String query2 = "select * from CinemaStation where `Station Id`="+station_id+";";
 		PreparedStatement ps2=null;
 		try {
             ps2 = connect.prepareStatement(query2);
@@ -116,7 +116,7 @@ public class UpdateStation extends JFrame {
 		// Get All Movies
 		Vector<String> v = new Vector<String>();
 		Vector<Integer> v1 = new Vector<Integer>();
-		String query3 = "select * from moviedetail;";
+		String query3 = "select * from MovieDetail;";
 		PreparedStatement ps3=null;
 		try {
             ps3 = connect.prepareStatement(query3);
@@ -157,29 +157,29 @@ public class UpdateStation extends JFrame {
 		station_given = new JTextField();
 		station_given.setText(station_name);
 		
-		station_given.setBounds(274, 119, 208, 19);
+		station_given.setBounds(274, 119, 260, 19);
 		frame.getContentPane().add(station_given);
 		station_given.setColumns(10);
 		station_given.setEditable(false);
 		
 		JCheckBox chkb1 = new JCheckBox("9 A.M - 12 P.M");
-		chkb1.setBounds(277, 217, 93, 21);
+		chkb1.setBounds(277, 217, 133, 21);
 		frame.getContentPane().add(chkb1);
 		
 		JCheckBox chkb3 = new JCheckBox("3 P.M - 6 P.M");
-		chkb3.setBounds(414, 217, 93, 21);
+		chkb3.setBounds(414, 217, 120, 21);
 		frame.getContentPane().add(chkb3);
 		
 		JCheckBox chkb2 = new JCheckBox("12 P.M - 3 P.M");
-		chkb2.setBounds(277, 256, 93, 21);
+		chkb2.setBounds(277, 256, 133, 21);
 		frame.getContentPane().add(chkb2);
 		
 		JCheckBox chkb4 = new JCheckBox("6 P.M - 9 P.M");
-		chkb4.setBounds(414, 256, 93, 21);
+		chkb4.setBounds(414, 256, 120, 21);
 		frame.getContentPane().add(chkb4);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(274, 156, 221, 21);
+		comboBox.setBounds(274, 156, 260, 21);
 		frame.getContentPane().add(comboBox);
 		Iterator value = v.iterator();
         while (value.hasNext()) {
@@ -223,7 +223,7 @@ public class UpdateStation extends JFrame {
 		        
 		        // Update Cinema Station
 				try{
-		             String query="UPDATE cinemastation "
+		             String query="UPDATE CinemaStation "
 		             		+ "SET "
 		             		+ " Availability =" + timing
 		             		+ ','

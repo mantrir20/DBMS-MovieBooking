@@ -46,11 +46,12 @@ public class BookingWindow extends JFrame {
 	String dummy;
 	int time;
 	int ticketID;
+	int paymentID;
 	String times;
 	
 	
 	Connection connect= null;
-	ResultSet rs1,rs,rs2,rs3,rs_Getnumber,rs4;
+	ResultSet rs1,rs,rs2,rs3,rs_Getnumber,rs4,rs_Getnumber1;
 	String rname,rid,rseat;
 	String m1,m2,m3,m4,m5;
 	public static int u,m,s,capacity,s1,s2;
@@ -126,6 +127,21 @@ public class BookingWindow extends JFrame {
       	  System.out.println(e.getMessage());
 		      JOptionPane.showMessageDialog(null, "Error getting number of users");
         }
+        
+		PreparedStatement ps_Getnumber1 = null;
+        try {
+      	  String query_Getnumber = "select count(*) from CompanyTransaction";
+      	  ps_Getnumber1  = connect.prepareStatement(query_Getnumber);
+            rs_Getnumber1 = ps_Getnumber1.executeQuery();
+            rs_Getnumber1.next();
+           paymentID = rs_Getnumber1.getInt(1);
+        }
+        catch(Exception e) {
+      	  System.out.println(e.getMessage());
+		      JOptionPane.showMessageDialog(null, "Error getting number of transactions");
+        }
+        
+        
         
         
         String query5 = "select * from CinemaStation where `Station ID`="+s+";";
@@ -212,7 +228,7 @@ public class BookingWindow extends JFrame {
 					JOptionPane.showMessageDialog(null, "Insufficient Balance in wallet");
 				}
 				
-				if(seat<=availableSeats && totalCost<=balance) {
+				if(seat<=availableSeats) {
 					btnMakePayment.setEnabled(true);
 				}
 				else {
@@ -266,7 +282,7 @@ public class BookingWindow extends JFrame {
 					System.out.println("numofseats="+numOfSeats+"dummy="+dummy);
 					availableSeats=capacity-numOfSeats;
 					
-					if(availableSeats>=seat) {
+					if(totalCost<=balance) {
 						
 						System.out.println(time);
 						try{
@@ -290,6 +306,20 @@ public class BookingWindow extends JFrame {
 							 ps6=connect.prepareStatement(query6);
 							 int rs1=ps6.executeUpdate(query6);
 							 
+							 String query7="insert into CompanyTransaction values(?,?,?,?,?,?,?,?)";
+							 PreparedStatement ps7=null;
+							 ps7=connect.prepareStatement(query7);
+							
+							 ps7.setInt(1, paymentID+1);
+							 ps7.setInt(2, 1);
+							 ps7.setInt(3, seat); 
+							 ps7.setInt(4, totalCost);
+							 ps7.setString(5, date);
+							 ps7.setInt(6, time);
+							 ps7.setInt(7, u);
+							 ps7.setInt(8, s);
+							 ps7.execute();
+							 
 							 dispose();
 							 
 							  
@@ -298,12 +328,37 @@ public class BookingWindow extends JFrame {
 							        System.out.println(e.getMessage());
 							        
 							  }
-						catch(Exception e){
-							        
-							  }
+
+							                
+		                
+		                
+						
 					}
 					else {
-						JOptionPane.showMessageDialog(null, "Number of seats available="+availableSeats);
+						JOptionPane.showMessageDialog(null, "Transaction Failed! Please Add money in your wallet, Current balance: "+balance);
+						try{
+				             String query7="insert into CompanyTransaction values(?,?,?,?,?,?,?,?)";
+							 PreparedStatement ps7=null;
+							 ps7=connect.prepareStatement(query7);
+							
+							 ps7.setInt(1, paymentID+1);
+							 ps7.setInt(2, 0);
+							 ps7.setInt(3, seat);
+							 ps7.setInt(4, totalCost);
+							 ps7.setString(5, date);
+							 ps7.setInt(6, time);
+							 ps7.setInt(7, u);
+							 ps7.setInt(8, s);
+							 ps7.execute();
+
+							 dispose();
+							 
+							  
+							 }
+						catch (java.sql.SQLException e){
+							        System.out.println(e.getMessage());
+							        
+							  }
 					}
 					
 					

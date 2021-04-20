@@ -278,7 +278,7 @@ public class userDashboard extends JFrame {
             }
             else if(n==3)
             {
-            	
+            	new ChooseMovieToRate(u).setVisible(true);
             }
             else if(n==4)
             {
@@ -288,22 +288,20 @@ public class userDashboard extends JFrame {
                 	Document document=new Document();
                 	PdfWriter.getInstance(document, new FileOutputStream(file_name));
                 	document.open();
-                	PdfPTable table=new PdfPTable(6);
-                	PdfPCell c1=new PdfPCell(new Phrase("Payment ID"));
-                	PdfPCell c2=new PdfPCell(new Phrase("Transaction Status"));
+                	PdfPTable table=new PdfPTable(5);
+                	PdfPCell c1=new PdfPCell(new Phrase("Ticket Id"));
+                	PdfPCell c2=new PdfPCell(new Phrase("Movie Name"));
                 	PdfPCell d1=new PdfPCell(new Phrase("Number of Seats"));
-                	PdfPCell d2=new PdfPCell(new Phrase("Amount"));
-                	PdfPCell e1=new PdfPCell(new Phrase("Date"));
-                	PdfPCell e2=new PdfPCell(new Phrase("Time"));
+                	PdfPCell d2=new PdfPCell(new Phrase("Date"));
+                	PdfPCell e1=new PdfPCell(new Phrase("Time"));
                 	table.addCell(c1);
                 	table.addCell(c2);
                 	table.addCell(d1);
                 	table.addCell(d2);
                 	table.addCell(e1);
-                	table.addCell(e2);
                 	table.setHeaderRows(1);
                 	Connection connect=databaseConnect.dbconnect();
-                	String query="select * from CompanyTransaction where Uid="+u+";";
+                	String query="select * from Ticket where Uid="+u+";";
                 	System.out.println(u);
                 	PreparedStatement ps1=null;
                 	try {
@@ -312,18 +310,36 @@ public class userDashboard extends JFrame {
                         int i=0;
                         while(rs.next()) {
                   
-                        	PdfPCell c3=new PdfPCell(new Phrase(rs.getString("Payment Id")));
+                        	PdfPCell c3=new PdfPCell(new Phrase(rs.getString("Tid")));
                         	table.addCell(c3);          
-                        	PdfPCell c4=new PdfPCell(new Phrase(rs.getString("Transaction Result")));
+                        	PdfPCell c4=new PdfPCell(new Phrase(rs.getString("Movie Name")));
                         	table.addCell(c4);
                         	PdfPCell c5=new PdfPCell(new Phrase(rs.getString("Number of Seats")));
                         	table.addCell(c5);
-                        	PdfPCell c6=new PdfPCell(new Phrase(rs.getString("Amount")));
+                        	PdfPCell c6=new PdfPCell(new Phrase(rs.getString("Date")));
                         	table.addCell(c6);
-                        	PdfPCell c7=new PdfPCell(new Phrase(rs.getString("Date")));
-                        	table.addCell(c7);
-                        	PdfPCell c8=new PdfPCell(new Phrase(rs.getString("Timeslot")));
-                        	table.addCell(c8);
+                        	
+                        	
+                        	String qwerty=rs.getString("Time");
+                        	System.out.println(qwerty);
+                        	if(qwerty.equals("1")) {
+                        		PdfPCell c7=new PdfPCell(new Phrase("9AM-12PM"));
+                        		table.addCell(c7);
+                        	}
+                        	else if(qwerty.equals("2")) {
+                        		PdfPCell c7=new PdfPCell(new Phrase("12PM-3PM"));
+                        		table.addCell(c7);
+                        	}
+                        	else if(qwerty.equals("3")) {
+                        		PdfPCell c7=new PdfPCell(new Phrase("3PM-6PM"));
+                        		table.addCell(c7);
+                        	}
+                        	else{
+                        		PdfPCell c7=new PdfPCell(new Phrase("6PM-9PM"));
+                        		table.addCell(c7);
+                        	}
+                        	
+                        	
                         }
                      }
                      catch (SQLException ex) {
@@ -336,6 +352,7 @@ public class userDashboard extends JFrame {
                 	document.close();
             	}
             	catch(Exception ex2) {
+            		System.out.println(ex2.getMessage());
             		JOptionPane.showMessageDialog(null, "You have no past transactions");
             	}
             	
@@ -374,16 +391,49 @@ public class userDashboard extends JFrame {
                   
                         	PdfPCell c3=new PdfPCell(new Phrase(rs.getString("Payment Id")));
                         	table.addCell(c3);          
-                        	PdfPCell c4=new PdfPCell(new Phrase(rs.getString("Transaction Result")));
-                        	table.addCell(c4);
+                        
+                        	
+                        	String result=rs.getString("Transaction Result");
+                        	if(result.equals("1")) {
+                        		PdfPCell c4=new PdfPCell(new Phrase("Successful"));
+                        		table.addCell(c4);
+                        	}
+                        	else{
+                        		PdfPCell c4=new PdfPCell(new Phrase("Failed"));
+                        		table.addCell(c4);
+                        	}
+                        	
+                        	
                         	PdfPCell c5=new PdfPCell(new Phrase(rs.getString("Number of Seats")));
                         	table.addCell(c5);
                         	PdfPCell c6=new PdfPCell(new Phrase(rs.getString("Amount")));
                         	table.addCell(c6);
                         	PdfPCell c7=new PdfPCell(new Phrase(rs.getString("Date")));
                         	table.addCell(c7);
-                        	PdfPCell c8=new PdfPCell(new Phrase(rs.getString("Timeslot")));
-                        	table.addCell(c8);
+                  
+                        	
+                        	String qwerty=rs.getString("TimeSlot");
+                        	System.out.println(qwerty);
+                        	if(qwerty.equals("1")) {
+                        		PdfPCell c8=new PdfPCell(new Phrase("9AM-12PM"));
+                        		table.addCell(c8);
+                        	}
+                        	else if(qwerty.equals("2")) {
+                        		PdfPCell c8=new PdfPCell(new Phrase("12PM-3PM"));
+                        		table.addCell(c8);
+                        	}
+                        	else if(qwerty.equals("3")) {
+                        		PdfPCell c8=new PdfPCell(new Phrase("3PM-6PM"));
+                        		table.addCell(c8);
+                        	}
+                        	else{
+                        		PdfPCell c8=new PdfPCell(new Phrase("6PM-9PM"));
+                        		table.addCell(c8);
+                        	}
+                        	
+                        	
+                        	
+                        	
                         }
                      }
                      catch (SQLException ex) {

@@ -198,7 +198,7 @@ public class adminloginPage extends javax.swing.JFrame {
             try
             {
                 user_email = txt_email_id.getText();
-                String query ="select * from employee where Email = ?";
+                String query ="select * from Employee where Email = ?";
                 PreparedStatement ps =connect.prepareStatement(query);
                 ps.setString(1, user_email);
                 ResultSet rs=ps.executeQuery();

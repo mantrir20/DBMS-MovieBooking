@@ -38,14 +38,14 @@ public class adminDashboard extends JFrame {
 	private Image transaction=new ImageIcon(userDashboard.class.getResource("transaction.png")).getImage().getScaledInstance(90,90,Image.SCALE_SMOOTH);
 	private Image report=new ImageIcon(userDashboard.class.getResource("report.png")).getImage().getScaledInstance(90,90,Image.SCALE_SMOOTH);
 	private Image signout=new ImageIcon(userDashboard.class.getResource("signout.png")).getImage().getScaledInstance(90,90,Image.SCALE_SMOOTH);
+	private Image user=new ImageIcon(userDashboard.class.getResource("User.png")).getImage().getScaledInstance(90,90,Image.SCALE_SMOOTH);
 	static Connection connect= null;
 	/**
 	 * Launch the application.
 	 * 
 	 * 
 	 */
-	String username;
-	String balance;
+	String ename;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -70,15 +70,14 @@ public class adminDashboard extends JFrame {
 		
 		PreparedStatement ps1=null;
 		connect = databaseConnect.dbconnect();
-		String query1 = "select * from User where Uid="+u+";";
+		String query1 = "select * from Employee where Eid="+u+";";
 		
 		try {
 			
             ps1 = connect.prepareStatement(query1);
             ResultSet rs=ps1.executeQuery(query1);
             while(rs.next()) {
-            	username = rs.getString("Uname");	
-            	balance =rs.getString("Balance");
+            	ename = rs.getString("Ename");
             }
             
 		}
@@ -170,7 +169,7 @@ public class adminDashboard extends JFrame {
 		Transaction.setBounds(0, 372, 811, 96);
 		mainframe.add(Transaction);
 		Transaction.setLayout(null);		
-		JLabel label_2 = new JLabel("Check Your Past Bookings");
+		JLabel label_2 = new JLabel("User Interface");
 		label_2.setForeground(new Color(0, 0, 0));
 		label_2.setFont(new Font("Tw Cen MT Condensed", Font.PLAIN, 40));
 		label_2.setBounds(159, 11, 662, 61);
@@ -179,34 +178,14 @@ public class adminDashboard extends JFrame {
 		JLabel transactionpic = new JLabel("");
 		transactionpic.setHorizontalAlignment(SwingConstants.CENTER);
 		transactionpic.setBounds(29, 0, 107, 96);
-		transactionpic.setIcon(new ImageIcon(transaction));
+		transactionpic.setIcon(new ImageIcon(user));
 		Transaction.add(transactionpic);
-		
-		JPanel Report = new JPanel();
-		Report.setBorder(new LineBorder(new Color(0, 0, 0)));
-		Report.addMouseListener(new Adapter(Report,5));
-		Report.setBackground(new Color(255, 239, 213));
-		Report.setBounds(0, 468, 811, 95);
-		mainframe.add(Report);
-		Report.setLayout(null);
-		
-		JLabel label_3 = new JLabel("Your Transaction History");
-		label_3.setForeground(new Color(0, 0, 0));
-		label_3.setFont(new Font("Tw Cen MT Condensed", Font.PLAIN, 40));
-		label_3.setBounds(159, 11, 611, 61);
-		Report.add(label_3);
-		
-		JLabel reportpic = new JLabel("");
-		reportpic.setHorizontalAlignment(SwingConstants.CENTER);
-		reportpic.setBounds(34, 0, 100, 95);
-		reportpic.setIcon(new ImageIcon(report));
-		Report.add(reportpic);
 		
 		JPanel Signout = new JPanel();
 		Signout.setBorder(new LineBorder(new Color(0, 0, 0)));
 		Signout.addMouseListener(new Adapter(Signout,6));
 		Signout.setBackground(new Color(255, 239, 213));
-		Signout.setBounds(-11, 563, 822, 89);
+		Signout.setBounds(0, 468, 822, 89);
 		mainframe.add(Signout);
 		Signout.setLayout(null);
 		
@@ -234,7 +213,7 @@ public class adminDashboard extends JFrame {
 		Dashpic.setBounds(24, 12, 134, 78);
 		Dash.add(Dashpic);
 		
-		JLabel lblHi = new JLabel("Hi! "+username);
+		JLabel lblHi = new JLabel("Hi! "+ename);
 		lblHi.setHorizontalTextPosition(SwingConstants.RIGHT);
 		lblHi.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 43));
 		lblHi.setForeground(Color.WHITE);

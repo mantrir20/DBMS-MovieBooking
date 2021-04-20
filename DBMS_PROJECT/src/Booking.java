@@ -1,6 +1,8 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.sql.*;
+import java.text.DecimalFormat;
+
 import javax.swing.JOptionPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -11,8 +13,11 @@ import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -20,14 +25,16 @@ import java.awt.event.ActionEvent;
 public class Booking extends JFrame {
 
 	private JPanel OuterContainer;
-
+	
 	/**
 	 * Launch the application.
 	 */
 	Connection connect= null;
 	 ResultSet rs1,rs,rs2,rs3;
 	 String rname;
+	 String rRating;
 	 String m1,m2,m3,m4,m5;
+	 String r1,r2,r3,r4,r5;
 	 public static int u;
 
 	/**
@@ -35,7 +42,8 @@ public class Booking extends JFrame {
 	 */
 	public Booking(int user_id) {
 		
-		
+		DecimalFormat df = new DecimalFormat("#.0#");
+
 		u=user_id;
 		connect=databaseConnect.dbconnect();
 		String query1 = "select * from MovieDetail";
@@ -47,25 +55,31 @@ public class Booking extends JFrame {
             int i=0;
             while(rs3.next()) {
                 rname = rs3.getString("Movie Name");
+                rRating= df.format(rs3.getDouble("Rating"));
                 if(i==0)
                 {
                 	m1=rname;
+                	r1=rRating;
                 }
                 else if(i==1)
                 {
                 	m2=rname;
+                	r2=rRating;
                 }
                 else if(i==2)
                 {
                 	m3=rname;
+                	r3=rRating;
                 }
                 else if(i==3)
                 {
                 	m4=rname;
+                	r4=rRating;
                 }
                 else
                 {
                 	m5=rname;
+                	r5=rRating;
                 }
                 i++;
             }
@@ -113,6 +127,12 @@ public class Booking extends JFrame {
 		MovieName1.setBounds(300, 20, 500, 40);
 		Movie1.add(MovieName1);
 		
+		JLabel rating1 = new JLabel(r1);
+		rating1.setFont(new Font("Dialog", Font.BOLD, 30));
+		rating1.setHorizontalAlignment(SwingConstants.CENTER);
+		rating1.setBounds(926, 20, 162, 40);
+		Movie1.add(rating1);
+		
 		JPanel Movie2 = new JPanel();
 		Movie2.addMouseListener(new PanelButtonMouseAdapter(Movie2,m22));
 		Movie2.setBackground(new Color(255, 204, 51));
@@ -125,6 +145,12 @@ public class Booking extends JFrame {
 		MovieName2.setHorizontalAlignment(SwingConstants.CENTER);
 		MovieName2.setBounds(300, 20, 500, 40);
 		Movie2.add(MovieName2);
+		
+		JLabel rating2 = new JLabel(r2);
+		rating2.setHorizontalAlignment(SwingConstants.CENTER);
+		rating2.setFont(new Font("Dialog", Font.BOLD, 30));
+		rating2.setBounds(921, 20, 167, 40);
+		Movie2.add(rating2);
 		
 		JPanel Movie3 = new JPanel();
 		Movie3.addMouseListener(new PanelButtonMouseAdapter(Movie3,m33));
@@ -139,6 +165,12 @@ public class Booking extends JFrame {
 		MovieName3.setBounds(300, 20, 500, 40);
 		Movie3.add(MovieName3);
 		
+		JLabel rating3 = new JLabel(r3);
+		rating3.setHorizontalAlignment(SwingConstants.CENTER);
+		rating3.setFont(new Font("Dialog", Font.BOLD, 30));
+		rating3.setBounds(915, 20, 173, 40);
+		Movie3.add(rating3);
+		
 		JPanel Movie4 = new JPanel();
 		Movie4.addMouseListener(new PanelButtonMouseAdapter(Movie4,m44));
 		Movie4.setBackground(new Color(255, 204, 51));
@@ -152,10 +184,16 @@ public class Booking extends JFrame {
 		MovieName4.setBounds(300, 20, 500, 40);
 		Movie4.add(MovieName4);
 		
+		JLabel rating4 = new JLabel(r4);
+		rating4.setHorizontalAlignment(SwingConstants.CENTER);
+		rating4.setFont(new Font("Dialog", Font.BOLD, 30));
+		rating4.setBounds(915, 20, 173, 40);
+		Movie4.add(rating4);
+		
 		JPanel Movie5 = new JPanel();
 		Movie5.addMouseListener(new PanelButtonMouseAdapter(Movie5,m55));
 		Movie5.setBackground(new Color(255, 204, 51));
-		Movie5.setBounds(90, 470, 1100, 80);
+		Movie5.setBounds(90, 479, 1100, 80);
 		MovieOptions.add(Movie5);
 		Movie5.setLayout(null);
 		
@@ -165,6 +203,12 @@ public class Booking extends JFrame {
 		MovieName5.setHorizontalAlignment(SwingConstants.CENTER);
 		MovieName5.setBounds(300, 20, 500, 40);
 		Movie5.add(MovieName5);
+		
+		JLabel rating5 = new JLabel(r5);
+		rating5.setHorizontalAlignment(SwingConstants.CENTER);
+		rating5.setFont(new Font("Dialog", Font.BOLD, 30));
+		rating5.setBounds(915, 20, 173, 40);
+		Movie5.add(rating5);
 		
 		JPanel DashboardBack = new JPanel();
 		DashboardBack.addMouseListener(new PanelButtonMouseAdapter(DashboardBack,33));
