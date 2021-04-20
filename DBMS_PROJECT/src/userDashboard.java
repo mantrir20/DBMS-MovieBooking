@@ -284,7 +284,7 @@ public class userDashboard extends JFrame {
             {
             	try
             	{
-            		String file_name="";//enter path of download directory
+            		String file_name="user.pdf";//enter path of download directory
                 	Document document=new Document();
                 	PdfWriter.getInstance(document, new FileOutputStream(file_name));
                 	document.open();
@@ -361,7 +361,7 @@ public class userDashboard extends JFrame {
             {
             	try
             	{
-            		String file_name="";//enter path of download directory
+            		String file_name="user.pdf";//enter path of download directory
                 	Document document=new Document();
                 	PdfWriter.getInstance(document, new FileOutputStream(file_name));
                 	document.open();

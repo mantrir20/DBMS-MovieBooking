@@ -39,6 +39,8 @@ public class adminDashboard extends JFrame {
 	private Image report=new ImageIcon(userDashboard.class.getResource("report.png")).getImage().getScaledInstance(90,90,Image.SCALE_SMOOTH);
 	private Image signout=new ImageIcon(userDashboard.class.getResource("signout.png")).getImage().getScaledInstance(90,90,Image.SCALE_SMOOTH);
 	private Image user=new ImageIcon(userDashboard.class.getResource("User.png")).getImage().getScaledInstance(90,90,Image.SCALE_SMOOTH);
+	private Image update=new ImageIcon(userDashboard.class.getResource("Update.png")).getImage().getScaledInstance(90,90,Image.SCALE_SMOOTH);
+	private Image view=new ImageIcon(userDashboard.class.getResource("View.png")).getImage().getScaledInstance(90,90,Image.SCALE_SMOOTH);
 	static Connection connect= null;
 	/**
 	 * Launch the application.
@@ -104,7 +106,7 @@ public class adminDashboard extends JFrame {
 		
 		JPanel Booking = new JPanel();
 		Booking.setBorder(new LineBorder(new Color(0, 0, 0)));
-		Booking.addMouseListener(new Adapter(Booking,1));
+		Booking.addMouseListener(new Adapter(Booking,3));
 		Booking.setBackground(new Color(255, 239, 213));
 		Booking.setBounds(0, 111, 811, 89);
 		mainframe.add(Booking);
@@ -119,12 +121,12 @@ public class adminDashboard extends JFrame {
 		JLabel Bookpic = new JLabel("");
 		Bookpic.setHorizontalAlignment(SwingConstants.CENTER);
 		Bookpic.setBounds(29, 0, 99, 83);
-		Bookpic.setIcon(new ImageIcon(booking));
+		Bookpic.setIcon(new ImageIcon(view));
 		Booking.add(Bookpic);
 		
 		JPanel Wallet = new JPanel();
 		Wallet.setBorder(new LineBorder(new Color(0, 0, 0)));
-		Wallet.addMouseListener(new Adapter(Wallet,2));
+		Wallet.addMouseListener(new Adapter(Wallet,1));
 		Wallet.setBackground(new Color(255, 239, 213));
 		Wallet.setBounds(0, 198, 811, 89);
 		mainframe.add(Wallet);
@@ -139,12 +141,12 @@ public class adminDashboard extends JFrame {
 		JLabel walletpic = new JLabel("");
 		walletpic.setHorizontalAlignment(SwingConstants.CENTER);
 		walletpic.setBounds(12, 12, 125, 68);
-		walletpic.setIcon(new ImageIcon(wallet));
+		walletpic.setIcon(new ImageIcon(update));
 		Wallet.add(walletpic);
 		
 		JPanel Rating = new JPanel();
 		Rating.setBorder(new LineBorder(new Color(0, 0, 0)));
-		Rating.addMouseListener(new Adapter(Rating,3));
+		Rating.addMouseListener(new Adapter(Rating,2));
 		Rating.setBackground(new Color(255, 239, 213));
 		Rating.setBounds(0, 286, 811, 89);
 		mainframe.add(Rating);
@@ -159,7 +161,7 @@ public class adminDashboard extends JFrame {
 		JLabel ratingpic = new JLabel("");
 		ratingpic.setHorizontalAlignment(SwingConstants.CENTER);
 		ratingpic.setBounds(39, 0, 90, 90);
-		ratingpic.setIcon(new ImageIcon(rating));
+		ratingpic.setIcon(new ImageIcon(report));
 		Rating.add(ratingpic);
 		
 		JPanel Transaction = new JPanel();
@@ -246,140 +248,73 @@ public class adminDashboard extends JFrame {
 		}
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			new userDashboard(u).setVisible(false);
             if(n==1)
             {
-            	new Booking(u).setVisible(true);
+            	setVisible(false);
+            	new ViewDetails(u).setVisible(true);
             }
             else if(n==2)
             {
-            	new Wallet(u).setVisible(true);
+            	setVisible(false);
+            	new UpdateStation(u).setVisible(true);
             }
             else if(n==3)
             {
-            	new UpdateStation(u).setVisible(true);
+            	try
+            	{
+            		String file_name="Station_report.pdf";
+                	Document document=new Document();
+                	PdfWriter.getInstance(document, new FileOutputStream(file_name));
+                	document.open();
+                	PdfPTable table=new PdfPTable(5);
+                	PdfPCell c1=new PdfPCell(new Phrase("Station ID"));
+                	PdfPCell c2=new PdfPCell(new Phrase("Total Seats"));
+                	PdfPCell d1=new PdfPCell(new Phrase("Availability"));
+                	PdfPCell d2=new PdfPCell(new Phrase("Movie ID"));
+                	PdfPCell e1=new PdfPCell(new Phrase("Station Name"));
+                	table.addCell(c1);
+                	table.addCell(c2);
+                	table.addCell(d1);
+                	table.addCell(d2);
+                	table.addCell(e1);
+                	table.setHeaderRows(1);
+                	Connection connect=databaseConnect.dbconnect();
+                	String query="select * from CinemaStation order by `Station ID`";
+                	PreparedStatement ps1=null;
+                	try {
+                        ps1 = connect.prepareStatement(query);
+                        ResultSet rs=ps1.executeQuery();
+                        int i=0;
+                        while(rs.next()) {
+                        	PdfPCell c3=new PdfPCell(new Phrase(rs.getString("Station Id")));
+                        	table.addCell(c3);          
+                        	PdfPCell c4=new PdfPCell(new Phrase(rs.getString("Total Seats")));
+                        	table.addCell(c4);
+                        	PdfPCell c5=new PdfPCell(new Phrase(rs.getString("Availability")));
+                        	table.addCell(c5);
+                        	PdfPCell c6=new PdfPCell(new Phrase(rs.getString("Movie ID")));
+                        	table.addCell(c6);
+                        	PdfPCell c7=new PdfPCell(new Phrase(rs.getString("Station Name")));
+                        	table.addCell(c7);
+                        }
+                     }
+                     catch (SQLException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+                	document.add(table);
+                	document.close();
+            	}
+            	catch(Exception e1)
+            	{
+            		System.err.println(e1);
+            	}
             }
             else if(n==4)
             {
-            	try
-            	{
-            		String file_name="";//enter path of download directory
-                	Document document=new Document();
-                	PdfWriter.getInstance(document, new FileOutputStream(file_name));
-                	document.open();
-                	PdfPTable table=new PdfPTable(6);
-                	PdfPCell c1=new PdfPCell(new Phrase("Payment ID"));
-                	PdfPCell c2=new PdfPCell(new Phrase("Transaction Status"));
-                	PdfPCell d1=new PdfPCell(new Phrase("Number of Seats"));
-                	PdfPCell d2=new PdfPCell(new Phrase("Amount"));
-                	PdfPCell e1=new PdfPCell(new Phrase("Date"));
-                	PdfPCell e2=new PdfPCell(new Phrase("Time"));
-                	table.addCell(c1);
-                	table.addCell(c2);
-                	table.addCell(d1);
-                	table.addCell(d2);
-                	table.addCell(e1);
-                	table.addCell(e2);
-                	table.setHeaderRows(1);
-                	Connection connect=databaseConnect.dbconnect();
-                	String query="select * from CompanyTransaction where Uid="+u+";";
-                	System.out.println(u);
-                	PreparedStatement ps1=null;
-                	try {
-                        ps1 = connect.prepareStatement(query);
-                        ResultSet rs=ps1.executeQuery();
-                        int i=0;
-                        while(rs.next()) {
-                  
-                        	PdfPCell c3=new PdfPCell(new Phrase(rs.getString("Payment Id")));
-                        	table.addCell(c3);          
-                        	PdfPCell c4=new PdfPCell(new Phrase(rs.getString("Transaction Result")));
-                        	table.addCell(c4);
-                        	PdfPCell c5=new PdfPCell(new Phrase(rs.getString("Number of Seats")));
-                        	table.addCell(c5);
-                        	PdfPCell c6=new PdfPCell(new Phrase(rs.getString("Amount")));
-                        	table.addCell(c6);
-                        	PdfPCell c7=new PdfPCell(new Phrase(rs.getString("Date")));
-                        	table.addCell(c7);
-                        	PdfPCell c8=new PdfPCell(new Phrase(rs.getString("Timeslot")));
-                        	table.addCell(c8);
-                        }
-                     }
-                     catch (SQLException ex) {
-                        System.out.println(ex.getMessage());
-                        
-                    }
-                	
-                	
-                	document.add(table);
-                	document.close();
-            	}
-            	catch(Exception ex2) {
-            		JOptionPane.showMessageDialog(null, "You have no past transactions");
-            	}
-            	
+            	setVisible(false);
+            	new loginPage().setVisible(true);
             }
-            else if(n==5)
-            {
-            	try
-            	{
-            		String file_name="";//enter path of download directory
-                	Document document=new Document();
-                	PdfWriter.getInstance(document, new FileOutputStream(file_name));
-                	document.open();
-                	PdfPTable table=new PdfPTable(6);
-                	PdfPCell c1=new PdfPCell(new Phrase("Payment ID"));
-                	PdfPCell c2=new PdfPCell(new Phrase("Transaction Status"));
-                	PdfPCell d1=new PdfPCell(new Phrase("Number of Seats"));
-                	PdfPCell d2=new PdfPCell(new Phrase("Amount"));
-                	PdfPCell e1=new PdfPCell(new Phrase("Date"));
-                	PdfPCell e2=new PdfPCell(new Phrase("Time"));
-                	table.addCell(c1);
-                	table.addCell(c2);
-                	table.addCell(d1);
-                	table.addCell(d2);
-                	table.addCell(e1);
-                	table.addCell(e2);
-                	table.setHeaderRows(1);
-                	Connection connect=databaseConnect.dbconnect();
-                	String query="select * from CompanyTransaction where Uid="+u+";";
-                	System.out.println(u);
-                	PreparedStatement ps1=null;
-                	try {
-                        ps1 = connect.prepareStatement(query);
-                        ResultSet rs=ps1.executeQuery();
-                        int i=0;
-                        while(rs.next()) {
-                  
-                        	PdfPCell c3=new PdfPCell(new Phrase(rs.getString("Payment Id")));
-                        	table.addCell(c3);          
-                        	PdfPCell c4=new PdfPCell(new Phrase(rs.getString("Transaction Result")));
-                        	table.addCell(c4);
-                        	PdfPCell c5=new PdfPCell(new Phrase(rs.getString("Number of Seats")));
-                        	table.addCell(c5);
-                        	PdfPCell c6=new PdfPCell(new Phrase(rs.getString("Amount")));
-                        	table.addCell(c6);
-                        	PdfPCell c7=new PdfPCell(new Phrase(rs.getString("Date")));
-                        	table.addCell(c7);
-                        	PdfPCell c8=new PdfPCell(new Phrase(rs.getString("Timeslot")));
-                        	table.addCell(c8);
-                        }
-                     }
-                     catch (SQLException ex) {
-                        System.out.println(ex.getMessage());
-                        
-                    }
-                	
-                	
-                	document.add(table);
-                	document.close();
-            	}
-            	catch(Exception ex2) {
-            		JOptionPane.showMessageDialog(null, "You have no past transactions");
-            	}
-            	
-            }
-            else if(n==6)
+            else
             {
             	setVisible(false);
             	new loginPage().setVisible(true);

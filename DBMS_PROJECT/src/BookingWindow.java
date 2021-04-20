@@ -320,6 +320,14 @@ public class BookingWindow extends JFrame {
 							 ps7.setInt(8, s);
 							 ps7.execute();
 							 
+							 
+							 String query8="insert into Watch values(?,?)";
+							 PreparedStatement ps8=null;
+							 ps8=connect.prepareStatement(query8);
+							
+							 ps8.setInt(1, u);
+							 ps8.setInt(2, m);
+							 ps8.execute();
 							 dispose();
 							 
 							  

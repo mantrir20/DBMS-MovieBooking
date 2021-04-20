@@ -16,7 +16,6 @@
 /Project.class
 /RatingPage$1.class
 /RatingPage$2.class
-/RatingPage$3.class
 /RatingPage.class
 /Update.png
 /UpdateStation$1.class
@@ -65,3 +64,8 @@
 /userDashboard$Adapter.class
 /userDashboard.class
 /wallet.png
+/ViewDetails$1.class
+/ViewDetails.class
+/ViewDetails$PanelButtonMouseAdapter.class
+/DetailsPop$1.class
+/DetailsPop.class
